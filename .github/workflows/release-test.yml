@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - '**/*'
-
+  push:
+    branches:
+      - develop
 jobs:
   release-test-linux:
     runs-on: ubuntu-latest
