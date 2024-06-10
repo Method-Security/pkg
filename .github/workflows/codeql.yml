@@ -1,11 +1,9 @@
 name: 🚨 CodeQL Analysis
 
 on:
-  workflow_dispatch:
   pull_request:
     paths:
-      - '**.go'
-      - '**.mod'
+      - '**.*'
 jobs:
   analyze:
     name: Analyze
