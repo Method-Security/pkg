@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 2
+env:
+  - GO111MODULE=on
+project_name: pkg
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+builds:
+  - skip: true
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
