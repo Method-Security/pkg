@@ -9,7 +9,7 @@ on:
       - develop
 jobs:
   release-test-linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu:latest
     steps:
       - name: "Check out code"
         uses: actions/checkout@v3
