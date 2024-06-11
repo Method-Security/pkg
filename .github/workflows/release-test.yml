@@ -3,13 +3,13 @@ name: 🔨 Release Test
 on:
   pull_request:
     paths:
-      - '**/*'
+      - "**/*"
   push:
     branches:
       - develop
 jobs:
   release-test-linux:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
       - name: "Check out code"
         uses: actions/checkout@v3
