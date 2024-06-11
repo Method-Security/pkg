@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Method Security. All rights reserved.
+// Use of this source code is governed by the Apache License, Version 2.0
+// that can be found in the LICENSE file.
+
 package writer_test
 
 import (
@@ -7,25 +11,25 @@ import (
 )
 
 func TestIsUnknown(t *testing.T) {
-	unknownFormat := writer.New_Format(writer.Format_Value("unknown"))
+	unknownFormat := writer.NewFormat(writer.FormatValue("unknown"))
 
 	if !unknownFormat.IsUnknown() {
 		t.Errorf("Expected unknown format to be unknown, but it is not")
 	}
 
-	jsonFormat := writer.New_Format(writer.JSON)
+	jsonFormat := writer.NewFormat(writer.JSON)
 
 	if jsonFormat.IsUnknown() {
 		t.Errorf("Expected JSON format to not be unknown, but it is")
 	}
 
-	yamlFormat := writer.New_Format(writer.YAML)
+	yamlFormat := writer.NewFormat(writer.YAML)
 
 	if yamlFormat.IsUnknown() {
 		t.Errorf("Expected YAML format to not be unknown, but it is")
 	}
 
-	signalFormat := writer.New_Format(writer.SIGNAL)
+	signalFormat := writer.NewFormat(writer.SIGNAL)
 
 	if signalFormat.IsUnknown() {
 		t.Errorf("Expected SIGNAL format to not be unknown, but it is")
@@ -40,27 +44,27 @@ func TestUnmarshalText(t *testing.T) {
 		{
 			name:     "Valid JSON",
 			input:    []byte("json"),
-			expected: writer.New_Format(writer.JSON),
+			expected: writer.NewFormat(writer.JSON),
 		},
 		{
 			name:     "Valid YAML",
 			input:    []byte("yaml"),
-			expected: writer.New_Format(writer.YAML),
+			expected: writer.NewFormat(writer.YAML),
 		},
 		{
 			name:     "Valid SIGNAL",
 			input:    []byte("signal"),
-			expected: writer.New_Format(writer.SIGNAL),
+			expected: writer.NewFormat(writer.SIGNAL),
 		},
 		{
 			name:     "Unknown format",
 			input:    []byte("unknown"),
-			expected: writer.New_Format(writer.UNKNOWN),
+			expected: writer.NewFormat(writer.UNKNOWN),
 		},
 		{
 			name:     "Empty input",
 			input:    []byte(""),
-			expected: writer.New_Format(writer.Format_Value("")),
+			expected: writer.NewFormat(writer.FormatValue("")),
 		},
 	}
 

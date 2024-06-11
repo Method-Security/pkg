@@ -27,17 +27,17 @@ func main() {
 	}
 	startedAt := datetime.DateTime(time.Now())
 	status := 0
-	signalConfig := writer.NewOutputConfig(nil, writer.New_Format(writer.SIGNAL))
-	jsonConfig := writer.NewOutputConfig(nil, writer.New_Format(writer.JSON))
-	yamlConfig := writer.NewOutputConfig(nil, writer.New_Format(writer.YAML))
+	signalConfig := writer.NewOutputConfig(nil, writer.NewFormat(writer.SIGNAL))
+	jsonConfig := writer.NewOutputConfig(nil, writer.NewFormat(writer.JSON))
+	yamlConfig := writer.NewOutputConfig(nil, writer.NewFormat(writer.YAML))
 
-	writer.Write(report, signalConfig, startedAt, &startedAt, status, nil)
+	_ = writer.Write(report, signalConfig, startedAt, &startedAt, status, nil)
 	fmt.Println()
 	fmt.Println()
-	writer.Write(report, jsonConfig, startedAt, &startedAt, status, nil)
+	_ = writer.Write(report, jsonConfig, startedAt, &startedAt, status, nil)
 	fmt.Println()
 	fmt.Println()
-	writer.Write(report, yamlConfig, startedAt, &startedAt, status, nil)
+	_ = writer.Write(report, yamlConfig, startedAt, &startedAt, status, nil)
 
 	os.Exit(0)
 }

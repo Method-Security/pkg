@@ -34,6 +34,9 @@ func Write(
 	case SIGNAL:
 		signal := sig.NewSignal(report, startedAt, completedAt, status, errorMessage)
 		err = signal.EncodeContent()
+		if err != nil {
+			return err
+		}
 		data, err = safejson.Marshal(signal)
 	default:
 		err = fmt.Errorf("unknown output format: %s", config.Output)

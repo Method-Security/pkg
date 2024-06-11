@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Method Security. All rights reserved.
+// Use of this source code is governed by the Apache License, Version 2.0
+// that can be found in the LICENSE file.
+
 package writer_test
 
 import (
@@ -34,7 +38,7 @@ func TestWrite(t *testing.T) {
 		{
 			name:         "Signal Output",
 			report:       TestReport{Foo: "foo", Bar: 42, Baz: []string{"baz1", "baz2"}},
-			config:       writer.OutputConfig{Output: writer.New_Format(writer.SIGNAL), FilePath: nil},
+			config:       writer.OutputConfig{Output: writer.NewFormat(writer.SIGNAL), FilePath: nil},
 			startedAt:    startedAt,
 			completedAt:  &completedAt,
 			status:       0,
@@ -44,7 +48,7 @@ func TestWrite(t *testing.T) {
 		{
 			name:         "JSON Output",
 			report:       TestReport{Foo: "foo", Bar: 42, Baz: []string{"baz1", "baz2"}},
-			config:       writer.OutputConfig{Output: writer.New_Format(writer.JSON), FilePath: nil},
+			config:       writer.OutputConfig{Output: writer.NewFormat(writer.JSON), FilePath: nil},
 			startedAt:    startedAt,
 			completedAt:  &completedAt,
 			status:       0,
@@ -54,7 +58,7 @@ func TestWrite(t *testing.T) {
 		{
 			name:         "YAML Output",
 			report:       TestReport{Foo: "foo", Bar: 42, Baz: []string{"baz1", "baz2"}},
-			config:       writer.OutputConfig{Output: writer.New_Format(writer.YAML), FilePath: nil},
+			config:       writer.OutputConfig{Output: writer.NewFormat(writer.YAML), FilePath: nil},
 			startedAt:    startedAt,
 			completedAt:  &completedAt,
 			status:       0,
@@ -64,7 +68,7 @@ func TestWrite(t *testing.T) {
 		{
 			name:         "UNKNOWN Output",
 			report:       TestReport{Foo: "foo", Bar: 42, Baz: []string{"baz1", "baz2"}},
-			config:       writer.OutputConfig{Output: writer.New_Format(writer.UNKNOWN), FilePath: nil},
+			config:       writer.OutputConfig{Output: writer.NewFormat(writer.UNKNOWN), FilePath: nil},
 			startedAt:    startedAt,
 			completedAt:  &completedAt,
 			status:       0,
