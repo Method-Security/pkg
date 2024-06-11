@@ -1,0 +1,25 @@
+products:
+  signal:
+    build:
+      main-pkg: ./signal
+      os-archs:
+        - os: darwin
+          arch: amd64
+        - os: darwin
+          arch: arm64
+        - os: linux
+          arch: amd64
+        - os: linux
+          arch: arm64
+  writer:
+    build:
+      main-pkg: ./writer
+      os-archs:
+        - os: darwin
+          arch: amd64
+        - os: darwin
+          arch: arm64
+        - os: linux
+          arch: amd64
+        - os: linux
+          arch: arm64

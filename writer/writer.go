@@ -5,23 +5,56 @@
 package writer
 
 import (
-	"encoding/json"
+	"fmt"
 	"os"
+
+	sig "github.com/Method-Security/pkg/signal"
+	"github.com/palantir/pkg/datetime"
+	"github.com/palantir/pkg/safejson"
+	"github.com/palantir/pkg/safeyaml"
 )
 
-func Write(report any, outputFilePath *string) error {
-	fileData, err := json.Marshal(report)
+func Write(
+	report any,
+	config OutputConfig,
+	startedAt datetime.DateTime,
+	completedAt *datetime.DateTime,
+	status int,
+	errorMessage *string,
+) error {
+	var data []byte
+	var err error
+	switch config.Output.val {
+	case JSON:
+		signal := sig.NewSignal(report, startedAt, completedAt, status, errorMessage)
+		data, err = safejson.Marshal(signal)
+	case YAML:
+		signal := sig.NewSignal(report, startedAt, completedAt, status, errorMessage)
+		data, err = safeyaml.Marshal(signal)
+	case SIGNAL:
+		signal := sig.NewSignal(report, startedAt, completedAt, status, errorMessage)
+		err = signal.EncodeContent()
+		if err != nil {
+			return err
+		}
+		data, err = safejson.Marshal(signal)
+	default:
+		err = fmt.Errorf("unknown output format: %s", config.Output)
+	}
 	if err != nil {
 		return err
 	}
+	return writeToFileOrStdout(data, config.FilePath)
+}
 
-	if outputFilePath == nil {
-		_, err = os.Stdout.Write(fileData)
+func writeToFileOrStdout(data []byte, filePath *string) error {
+	if filePath == nil {
+		_, err := os.Stdout.Write(data)
 		if err != nil {
 			return err
 		}
 	} else {
-		err = os.WriteFile(*outputFilePath, fileData, 0644)
+		err := os.WriteFile(*filePath, data, 0644)
 		if err != nil {
 			return err
 		}

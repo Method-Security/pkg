@@ -1,0 +1,18 @@
+# github.com/palantir/pkg v1.1.0
+## explicit; go 1.19
+github.com/palantir/pkg
+# github.com/palantir/pkg/datetime v1.1.0
+## explicit; go 1.19
+github.com/palantir/pkg/datetime
+# github.com/palantir/pkg/safejson v1.1.0
+## explicit; go 1.19
+github.com/palantir/pkg/safejson
+# github.com/palantir/pkg/safeyaml v1.1.0
+## explicit; go 1.19
+github.com/palantir/pkg/safeyaml
+# github.com/palantir/pkg/transform v1.0.1
+## explicit; go 1.13
+github.com/palantir/pkg/transform
+# gopkg.in/yaml.v2 v2.4.0
+## explicit; go 1.15
+gopkg.in/yaml.v2

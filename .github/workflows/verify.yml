@@ -3,7 +3,7 @@ name: 🙏🏻 Verify
 on:
   pull_request:
     paths:
-      - '**.*'
+      - "**.*"
   push:
     branches:
       - develop
