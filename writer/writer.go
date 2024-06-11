@@ -5,7 +5,7 @@
 package writer
 
 import (
-	"encoding/base64"
+	"fmt"
 	"os"
 
 	sig "github.com/Method-Security/pkg/signal"
@@ -26,29 +26,22 @@ func Write(
 	var err error
 	switch config.Output.val {
 	case JSON:
-		data, err = safejson.Marshal(report)
+		signal := sig.NewSignal(report, startedAt, completedAt, status, errorMessage)
+		data, err = safejson.Marshal(signal)
 	case YAML:
-		data, err = safeyaml.Marshal(report)
+		signal := sig.NewSignal(report, startedAt, completedAt, status, errorMessage)
+		data, err = safeyaml.Marshal(signal)
 	case SIGNAL:
 		signal := sig.NewSignal(report, startedAt, completedAt, status, errorMessage)
-		data, err = writeSignal(signal)
+		err = signal.EncodeContent()
+		data, err = safejson.Marshal(signal)
+	default:
+		err = fmt.Errorf("unknown output format: %s", config.Output)
 	}
 	if err != nil {
 		return err
 	}
 	return writeToFileOrStdout(data, config.FilePath)
-}
-
-func writeSignal(
-	signal sig.Signal,
-) ([]byte, error) {
-	data, err := safejson.Marshal(signal.Report)
-	if err != nil {
-		return nil, err
-	}
-	encoded := base64.StdEncoding.EncodeToString(data)
-	report := sig.NewSignalReport(encoded, signal)
-	return safejson.Marshal(report)
 }
 
 func writeToFileOrStdout(data []byte, filePath *string) error {

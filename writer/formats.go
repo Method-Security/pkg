@@ -15,9 +15,10 @@ type Format struct {
 type Format_Value string
 
 const (
-	JSON   Format_Value = "json"
-	YAML   Format_Value = "yaml"
-	SIGNAL Format_Value = "signal"
+	JSON    Format_Value = "json"
+	YAML    Format_Value = "yaml"
+	SIGNAL  Format_Value = "signal"
+	UNKNOWN Format_Value = "unknown"
 )
 
 func Format_Values() []Format_Value {
@@ -54,6 +55,8 @@ func (f *Format) UnmarshalText(text []byte) error {
 		*f = New_Format(YAML)
 	case "SIGNAL":
 		*f = New_Format(SIGNAL)
+	case "UNKNOWN":
+		*f = New_Format(UNKNOWN)
 	}
 	return nil
 }
