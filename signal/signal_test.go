@@ -6,6 +6,7 @@ package signal_test
 
 import (
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"testing"
 	"time"
@@ -58,5 +59,43 @@ func TestSignal_EncodeContent(t *testing.T) {
 	expectedEncoded := base64.StdEncoding.EncodeToString([]byte(marshalledContent))
 	if signal.Content != expectedEncoded {
 		t.Errorf("Expected encoded content to be '%s', but got '%s'", expectedEncoded, signal.Content)
+	}
+}
+
+func TestSignal_AddError(t *testing.T) {
+	// Create a sample Signal instance
+	now := datetime.DateTime(time.Now())
+	content := "Sample content"
+	signal := sig.NewSignal(content, now, nil, 200, nil)
+
+	// Add an error to the Signal
+	err := errors.New("Sample error")
+	signal.AddError(err)
+
+	// Verify the error message
+	expectedErrorMessage := "Sample error"
+	if *signal.ErrorMessage != expectedErrorMessage {
+		t.Errorf("Expected ErrorMessage to be '%s', but got '%s'", expectedErrorMessage, *signal.ErrorMessage)
+	}
+
+	// Verify the status
+	expectedStatus := 1
+	if signal.Status != expectedStatus {
+		t.Errorf("Expected Status to be %d, but got %d", expectedStatus, signal.Status)
+	}
+
+	// Add another error to the Signal
+	err = errors.New("Another error")
+	signal.AddError(err)
+
+	// Verify the error message
+	expectedErrorMessage += " Another error"
+	if *signal.ErrorMessage != expectedErrorMessage {
+		t.Errorf("Expected ErrorMessage to be '%s', but got '%s'", expectedErrorMessage, *signal.ErrorMessage)
+	}
+
+	// Verify the status
+	if signal.Status != expectedStatus {
+		t.Errorf("Expected Status to be %d, but got %d", expectedStatus, signal.Status)
 	}
 }

@@ -6,6 +6,7 @@ package signal
 
 import (
 	"encoding/base64"
+	"fmt"
 
 	"github.com/palantir/pkg/datetime"
 	"github.com/palantir/pkg/safejson"
@@ -37,4 +38,14 @@ func (s *Signal) EncodeContent() error {
 	encoded := base64.StdEncoding.EncodeToString(data)
 	s.Content = encoded
 	return nil
+}
+
+func (s *Signal) AddError(err error) {
+	if s.ErrorMessage == nil {
+		s.ErrorMessage = new(string)
+		*s.ErrorMessage = err.Error()
+	} else {
+		*s.ErrorMessage += fmt.Sprintf(" %s", err.Error())
+	}
+	s.Status = 1
 }
